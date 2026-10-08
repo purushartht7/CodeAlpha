@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeAlpha AI Internship — Purusharth Tripathi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-badge">CodeAlpha</div>
+        <div class="brand-info">
+          <h1>AI Internship Portal</h1>
+          <p class="author-tag">Purusharth Tripathi <span>•</span> Sem V <span>•</span> AI Domain</p>
+        </div>
+      </div>
+      
+      <nav class="nav-tabs" role="tablist">
+        <button class="nav-tab active" data-tab="task1" role="tab" aria-selected="true">
+          <span class="tab-icon">💬</span>
+          <span class="tab-label">Task 1: FAQ Chatbot</span>
+        </button>
+        <button class="nav-tab" data-tab="task2" role="tab" aria-selected="false">
+          <span class="tab-icon">🌐</span>
+          <span class="tab-label">Task 2: AI Translator</span>
+        </button>
+        <button class="nav-tab" data-tab="docs" role="tab" aria-selected="false">
+          <span class="tab-icon">📄</span>
+          <span class="tab-label">Project Documentation</span>
+        </button>
+      </nav>
+
+      <div class="header-meta">
+        <span class="status-indicator"><span class="dot"></span> Online</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-container">
+
+    <!-- ==================== TAB 1: FAQ CHATBOT ==================== -->
+    <section id="tab-task1" class="tab-panel active">
+      <div class="task-banner">
+        <div class="banner-content">
+          <span class="pill-tag">NLP & Information Retrieval</span>
+          <h2>Intelligent FAQ Chatbot</h2>
+          <p>Trained on CodeAlpha internship guidelines. Matches queries using a <strong>TF-IDF Vector Space Model</strong> and <strong>Cosine Similarity</strong> with zero hallucination risk.</p>
+        </div>
+        <div class="stats-pills">
+          <div class="stat-item">
+            <span class="stat-num" id="faq-count">10</span>
+            <span class="stat-label">Knowledge FAQs</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" id="vocab-count">48</span>
+            <span class="stat-label">Unique Terms</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">0.25</span>
+            <span class="stat-label">Confidence Gate</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-layout">
+        <!-- Chat Column -->
+        <div class="chat-column">
+          <!-- Suggestion Chips -->
+          <div class="quick-prompts-bar">
+            <span class="quick-title">Quick prompts:</span>
+            <div class="chips-wrapper">
+              <button class="prompt-chip" data-prompt="What is CodeAlpha?">What is CodeAlpha?</button>
+              <button class="prompt-chip" data-prompt="How do I submit my internship task?">How do I submit tasks?</button>
+              <button class="prompt-chip" data-prompt="What is cosine similarity?">What is cosine similarity?</button>
+              <button class="prompt-chip" data-prompt="Do I need to post on LinkedIn?">LinkedIn submission?</button>
+              <button class="prompt-chip" data-prompt="Can I add custom FAQs?">Can I add FAQs?</button>
+            </div>
+          </div>
+
+          <!-- Chat Window -->
+          <div class="chat-window">
+            <div class="messages-container" id="chat-messages">
+              <div class="message-bubble bot-message">
+                <div class="avatar">🤖</div>
+                <div class="bubble-body">
+                  <div class="message-text">Hello! I am your CodeAlpha Internship Assistant. Ask me anything about project tasks, submissions, or the underlying NLP algorithms!</div>
+                  <div class="message-meta">Knowledge base loaded • TF-IDF Ready</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Input Bar -->
+            <form id="chat-form" class="chat-input-bar">
+              <input type="text" id="chat-input" placeholder="Ask a question about the internship..." autocomplete="off">
+              <button type="submit" id="chat-send-btn" class="primary-btn">
+                <span>Ask</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              </button>
+              <button type="button" id="clear-chat-btn" class="icon-btn" title="Clear Chat History">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Knowledge Base Column -->
+        <div class="kb-column">
+          <div class="card kb-card">
+            <div class="card-header">
+              <h3>📋 FAQ Knowledge Base</h3>
+              <input type="text" id="kb-search" placeholder="Filter questions..." class="search-input">
+            </div>
+            <div class="card-body kb-list-container" id="kb-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Add Custom FAQ Accordion -->
+          <div class="card add-faq-card">
+            <div class="card-header pointer" id="toggle-add-faq">
+              <h3>➕ Add New Question (Live Indexing)</h3>
+              <span class="chevron">▼</span>
+            </div>
+            <div class="card-body collapsed" id="add-faq-form-body">
+              <form id="add-faq-form">
+                <div class="form-group">
+                  <label for="new-question">Question:</label>
+                  <input type="text" id="new-question" placeholder="e.g. When will certificates be issued?" required>
+                </div>
+                <div class="form-group">
+                  <label for="new-answer">Answer:</label>
+                  <textarea id="new-answer" rows="2" placeholder="e.g. Certificates are issued within 7 days of review." required></textarea>
+                </div>
+                <button type="submit" class="secondary-btn w-full">Index Question to Model</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: AI TRANSLATOR ==================== -->
+    <section id="tab-task2" class="tab-panel">
+      <div class="task-banner">
+        <div class="banner-content">
+          <span class="pill-tag">Machine Translation & Speech AI</span>
+          <h2>AI Multi-Lingual Translation & Voice Synthesis</h2>
+          <p>Real-time neural translation across 130+ languages with automatic script detection, integrated text-to-speech audio synthesis, and single-click copy.</p>
+        </div>
+      </div>
+
+      <div class="translator-container">
+        <!-- Language Controls Bar -->
+        <div class="lang-controls-card">
+          <div class="lang-select-group">
+            <label for="source-lang">Translate from:</label>
+            <select id="source-lang" class="custom-select">
+              <option value="auto" selected>🌐 Auto (Detect Script)</option>
+              <!-- JS Populated -->
+            </select>
+          </div>
+
+          <button id="swap-lang-btn" class="swap-btn" title="Swap Languages">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 4v12m0 0l4-4m-4 4l-4-4"/></svg>
+          </button>
+
+          <div class="lang-select-group">
+            <label for="target-lang">Translate to:</label>
+            <select id="target-lang" class="custom-select">
+              <!-- JS Populated -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Quick Sample Text Chips -->
+        <div class="quick-samples">
+          <span class="sample-label">Try sample:</span>
+          <button class="sample-chip" data-sample="Hello teacher, here is my CodeAlpha internship project demonstration.">English</button>
+          <button class="sample-chip" data-sample="Bonjour professeur, voici ma présentation de projet de stage.">French</button>
+          <button class="sample-chip" data-sample="Hola profesor, esta es la demostración del proyecto de mi pasantía.">Spanish</button>
+          <button class="sample-chip" data-sample="नमस्ते शिक्षक, यह मेरे इंटर्नशिप प्रोजेक्ट का प्रदर्शन है।">Hindi</button>
+          <button class="sample-chip" data-sample="こんにちは先生、これが私のインターンシッププロジェクトのデモです。">Japanese</button>
+        </div>
+
+        <!-- Translation Dual Box -->
+        <div class="translation-grid">
+          <!-- Input Card -->
+          <div class="trans-card">
+            <div class="trans-card-header">
+              <span class="box-title">Source Text</span>
+              <button id="clear-input-btn" class="text-action-btn">Clear</button>
+            </div>
+            <textarea id="trans-input" placeholder="Type or paste text here to translate..." rows="7"></textarea>
+            <div class="trans-card-footer">
+              <span id="input-char-count" class="char-counter">0 characters</span>
+              <button id="translate-btn" class="primary-btn">
+                <span>Translate 🔄</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Output Card -->
+          <div class="trans-card">
+            <div class="trans-card-header">
+              <div class="detected-badge" id="detected-badge" style="display: none;">
+                Detected: <span id="detected-lang-name">English</span>
+              </div>
+              <span class="box-title" id="output-title">Translated Output</span>
+              <button id="copy-btn" class="text-action-btn" title="Copy Translated Text">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                <span id="copy-text">Copy</span>
+              </button>
+            </div>
+
+            <div class="trans-output-box" id="trans-output-box">
+              <p id="trans-placeholder" class="placeholder-text">Translation will appear here...</p>
+              <div id="trans-result-text" class="result-text" style="display: none;"></div>
+            </div>
+
+            <div class="trans-card-footer">
+              <div class="audio-controls">
+                <button id="play-tts-btn" class="audio-btn" disabled>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+                  <span id="audio-btn-label">Listen (TTS)</span>
+                </button>
+                <span class="audio-status" id="audio-status"></span>
+              </div>
+              <span id="output-char-count" class="char-counter">0 characters</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: PROJECT DOCUMENTATION ==================== -->
+    <section id="tab-docs" class="tab-panel">
+      <div class="docs-container">
+        <div class="docs-card">
+          <h2>CodeAlpha Internship Project Documentation</h2>
+          <p class="subtitle">Complete Technical Reference & Viva Voce Guide • Prepared by Purusharth Tripathi</p>
+
+          <hr class="divider">
+
+          <div class="doc-section">
+            <h3>1. Internship Overview</h3>
+            <table class="doc-table">
+              <tr><td><strong>Candidate Name</strong></td><td>Purusharth Tripathi</td></tr>
+              <tr><td><strong>Internship Platform</strong></td><td>CodeAlpha Virtual Internship</td></tr>
+              <tr><td><strong>Domain</strong></td><td>Artificial Intelligence (AI)</td></tr>
+              <tr><td><strong>Semester / Degree</strong></td><td>Semester V / B.Tech Computer Science & Engineering</td></tr>
+              <tr><td><strong>Hosting Platform</strong></td><td>Vercel (Serverless Edge & Static CDN via GitHub CI/CD)</td></tr>
+            </table>
+          </div>
+
+          <div class="doc-section">
+            <h3>2. Task 1: FAQ Chatbot — Architecture & Mathematical Modeling</h3>
+            <p>Task 1 implements a deterministic, closed-domain conversational system. Rather than relying on black-box generative models prone to hallucinations and recurring API fees, it implements a vector space information retrieval engine.</p>
+            
+            <div class="math-box">
+              <h4>Core Mathematical Formulations:</h4>
+              <p><strong>1. Smooth Inverse Document Frequency (IDF):</strong></p>
+              <code>IDF(t) = ln((1 + N) / (1 + DF(t))) + 1</code>
+              <p><em>(Penalizes ubiquitous words across documents; gives high weight to discriminative terms).</em></p>
+              
+              <p><strong>2. Euclidean L2 Vector Normalization:</strong></p>
+              <code>v_norm = v / sqrt(sum(v_i ^ 2))</code>
+              
+              <p><strong>3. Cosine Similarity (Dot Product of Normalized Vectors):</strong></p>
+              <code>Cosine Similarity(u, q) = (u • q) / (||u|| * ||q||) = u_norm • q_norm</code>
+            </div>
+
+            <p><strong>Confidence Threshold Logic:</strong> A dynamic acceptance threshold of <code>0.25 (25%)</code> is enforced. Queries scoring below 0.25 trigger a polite out-of-domain fallback rather than delivering an irrelevant answer.</p>
+          </div>
+
+          <div class="doc-section">
+            <h3>3. Task 2: AI Multi-Lingual Translation & Voice Synthesis</h3>
+            <p>Task 2 delivers a resilient machine translation and accessibility utility covering over 130 global languages.</p>
+            <ul>
+              <li><strong>Dynamic Language Discovery:</strong> Live ISO language code resolution mapping 130+ languages.</li>
+              <li><strong>Resilient Dual-Tier Execution:</strong> Features serverless API processing on Vercel backed by an automated client-side fallback to guarantee 100% translation uptime.</li>
+              <li><strong>Zero-Disk Audio Synthesis:</strong> Uses in-browser Speech Synthesis (Web Speech API) and synchronized streaming, preventing temporary file accumulation and server memory leakage.</li>
+              <li><strong>Clipboard Integration:</strong> One-click formatted code blocks for instantaneous copying.</li>
+            </ul>
+          </div>
+
+          <div class="doc-section">
+            <h3>4. Deployment on Vercel via GitHub</h3>
+            <p>The entire unified application is pre-configured for automated Vercel deployment with zero build configuration:</p>
+            <ol class="step-list">
+              <li>Initialize and push this directory to a GitHub repository named <code>CodeAlpha_AI_Internship</code>.</li>
+              <li>Log in to <a href="https://vercel.com" target="_blank" rel="noopener">Vercel.com</a> and click <strong>"Add New" &rarr; "Project"</strong>.</li>
+              <li>Select your GitHub repository and click <strong>"Deploy"</strong>.</li>
+              <li>Vercel automatically provisions global CDN static assets and activates <code>/api/translate.js</code> as an ultra-fast Serverless Function!</li>
+            </ol>
+          </div>
+
+          <!-- ==================== PASSWORD PROTECTED SECTION ==================== -->
+          <hr class="divider">
+
+          <div class="protected-wrapper" id="protected-wrapper">
+            
+            <!-- LOCKED STATE VIEW -->
+            <div class="locked-card" id="doc-locked-view">
+              <div class="lock-icon-badge">🔒</div>
+              <h3>Confidential Assessment Records & Verified Credentials</h3>
+              <p class="lock-desc">
+                Course: <strong>Internship Assessment-II (BCSE-0559)</strong> • Session (2025-26)<br>
+                Submitted To: <strong>Ms. Ishakshi Gupta</strong> • NIET Greater Noida
+              </p>
+              <p class="lock-subtext">This section contains verified academic evaluation records, official offer letter, letter of recommendation, completion certificates, and the full 30-day work calendar. Please enter the passkey to authenticate.</p>
+
+              <form id="doc-auth-form" class="lock-form">
+                <div class="lock-input-group">
+                  <input type="password" id="doc-pass-input" placeholder="Enter passkey to view..." autocomplete="current-password" required>
+                  <button type="button" id="toggle-pass-visibility" class="toggle-eye" title="Show/Hide passkey">👁️</button>
+                </div>
+                <button type="submit" class="primary-btn unlock-btn">
+                  <span>Unlock Records 🔓</span>
+                </button>
+              </form>
+              <div id="pass-error-msg" class="pass-error-text" style="display: none;">❌ Incorrect passkey. Access denied.</div>
+            </div>
+
+            <!-- UNLOCKED STATE VIEW -->
+            <div class="unlocked-card" id="doc-unlocked-view" style="display: none;">
+              <div class="unlocked-header">
+                <div class="unlocked-title-group">
+                  <span class="verified-pill">🔓 Verified Academic Credentials Unlocked</span>
+                  <h3>Noida Institute of Engineering and Technology (NIET), Greater Noida</h3>
+                  <p class="sub-inst">Department of Computer Science & Engineering (Artificial Intelligence) • Session 2025-26</p>
+                </div>
+                <button type="button" id="relock-btn" class="secondary-btn relock-btn">
+                  <span>Lock Records 🔒</span>
+                </button>
+              </div>
+
+              <!-- Student & Faculty Assessment Card -->
+              <div class="academic-profile-grid">
+                <div class="profile-item">
+                  <span class="p-label">Student Name</span>
+                  <span class="p-val highlight">Purusharth Tripathi</span>
+                </div>
+                <div class="profile-item">
+                  <span class="p-label">University Roll No.</span>
+                  <span class="p-val font-mono">2401331520150</span>
+                </div>
+                <div class="profile-item">
+                  <span class="p-label">Branch & Specialization</span>
+                  <span class="p-val">B.Tech CSE (Artificial Intelligence)</span>
+                </div>
+                <div class="profile-item">
+                  <span class="p-label">Subject & Course Code</span>
+                  <span class="p-val">Internship Assessment-II (BCSE-0559)</span>
+                </div>
+                <div class="profile-item">
+                  <span class="p-label">Faculty Evaluator (Submitted To)</span>
+                  <span class="p-val highlight">Ms. Ishakshi Gupta</span>
+                </div>
+                <div class="profile-item">
+                  <span class="p-label">Industry Mentorship</span>
+                  <span class="p-val">CodeAlpha Mentorship Team</span>
+                </div>
+                <div class="profile-item">
+                  <span class="p-label">CodeAlpha Student ID</span>
+                  <span class="p-val font-mono">CA/DF1/165983</span>
+                </div>
+                <div class="profile-item">
+                  <span class="p-label">Internship Tenure</span>
+                  <span class="p-val">1st July 2026 – 30th July 2026</span>
+                </div>
+              </div>
+
+              <!-- Verified Documents Section -->
+              <div class="docs-sub-section">
+                <h4>📑 Verified Institutional Documents & Certificates</h4>
+                <div class="docs-files-grid">
+                  
+                  <!-- Offer Letter Card -->
+                  <div class="cert-file-card">
+                    <div class="cert-card-icon">📄</div>
+                    <div class="cert-card-info">
+                      <span class="cert-badge">Govt. Registered (MCA)</span>
+                      <h5>Internship Offer Letter</h5>
+                      <p>Date: 13 Sep 2026 • Student ID: CA/DF1/278199</p>
+                      <span class="cert-sign">Signed: Swati Srivastava (Co-Founder & CEO)</span>
+                    </div>
+                    <a href="offer_letter.pdf" target="_blank" class="download-link-btn" title="Open PDF">
+                      <span>View PDF</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+                    </a>
+                  </div>
+
+                  <!-- LOR Card -->
+                  <div class="cert-file-card">
+                    <div class="cert-card-icon">📜</div>
+                    <div class="cert-card-info">
+                      <span class="cert-badge success">Official Recommendation</span>
+                      <h5>Letter of Recommendation (LOR)</h5>
+                      <p>Issued: 31 July 2026 • Student ID: CA/DF1/165983</p>
+                      <span class="cert-sign">Evaluation: Outstanding Analytical & AI Skills</span>
+                    </div>
+                    <a href="LOR_Purusharth Tripathi.pdf" target="_blank" class="download-link-btn" title="Open PDF">
+                      <span>View PDF</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+                    </a>
+                  </div>
+
+                  <!-- Certificate of Completion Card -->
+                  <div class="cert-file-card">
+                    <div class="cert-card-icon">🏆</div>
+                    <div class="cert-card-info">
+                      <span class="cert-badge gold">MSME Recognized</span>
+                      <h5>Certificate of Completion</h5>
+                      <p>Issued: 31 July 2026 • Student ID: CA/DF1/165983</p>
+                      <span class="cert-sign">Ministry of Micro, Small & Medium Enterprises</span>
+                    </div>
+                    <a href="Certificate_Purusharth Tripathi.pdf" target="_blank" class="download-link-btn" title="Open PDF">
+                      <span>View PDF</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- 30-Day Internship Work Calendar -->
+              <div class="docs-sub-section">
+                <h4>📅 30-Day Internship Daily Work Schedule (July 2026)</h4>
+                <p class="calendar-desc">Detailed day-by-day record of project execution submitted for Assessment-II (BCSE-0559):</p>
+                
+                <div class="table-responsive">
+                  <table class="schedule-table">
+                    <thead>
+                      <tr>
+                        <th style="width: 120px;">Date</th>
+                        <th style="width: 180px;">Project Milestone</th>
+                        <th>Work Carried Out & Technical Deliverables</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="phase-header"><td colspan="3">🔹 PHASE 1: Task 1 — NLP-Based FAQ Chatbot (1 July – 15 July 2026)</td></tr>
+                      <tr><td><strong>Jul 1, 2026</strong></td><td>Task 1: Orientation</td><td>Orientation; reviewed CodeAlpha internship guidelines and chatbot functional objectives.</td></tr>
+                      <tr><td><strong>Jul 2, 2026</strong></td><td>Environment Setup</td><td>Set up Python 3.12, Streamlit, Pandas, and development virtual environment.</td></tr>
+                      <tr><td><strong>Jul 3, 2026</strong></td><td>NLP & IR Research</td><td>Studied Information Retrieval principles, Vector Space Models, TF-IDF weighting, and Cosine Similarity.</td></tr>
+                      <tr><td><strong>Jul 4, 2026</strong></td><td>Dataset Preparation</td><td>Inspected and structured <code>faqs.csv</code> knowledge base containing verified internship Q&A pairs.</td></tr>
+                      <tr><td><strong>Jul 5, 2026</strong></td><td>Data Pipeline</td><td>Implemented FAQ data ingestion and schema validation using Pandas.</td></tr>
+                      <tr><td><strong>Jul 6, 2026</strong></td><td>Text Preprocessing</td><td>Implemented <code>clean_text</code> regex pipeline: case-folding, punctuation removal, and whitespace normalization.</td></tr>
+                      <tr><td><strong>Jul 7, 2026</strong></td><td>Feature Extraction</td><td>Designed tokenization, English stop-word filtering, and vocabulary indexing.</td></tr>
+                      <tr><td><strong>Jul 8, 2026</strong></td><td>TF-IDF Matrix</td><td>Implemented smooth IDF calculation and L2 vector normalization for all knowledge-base FAQs.</td></tr>
+                      <tr><td><strong>Jul 9, 2026</strong></td><td>Cosine Similarity</td><td>Implemented Cosine Similarity engine for high-speed query-to-document vector dot-product matching.</td></tr>
+                      <tr><td><strong>Jul 10, 2026</strong></td><td>Match Ranking</td><td>Built best-matching answer selection logic and confidence score calculation.</td></tr>
+                      <tr><td><strong>Jul 11, 2026</strong></td><td>Threshold Gate</td><td>Implemented the 0.25 confidence gate and conversational fallback response for out-of-domain queries.</td></tr>
+                      <tr><td><strong>Jul 12, 2026</strong></td><td>Chat UI</td><td>Built Streamlit conversational interface utilizing <code>st.chat_message</code>, <code>st.chat_input</code>, and session state.</td></tr>
+                      <tr><td><strong>Jul 13, 2026</strong></td><td>UI Refinement</td><td>Added real-time confidence metric display and collapsible knowledge-base inspector.</td></tr>
+                      <tr><td><strong>Jul 14, 2026</strong></td><td>Validation Testing</td><td>Tested exact, rephrased, and out-of-domain queries; fine-tuned tokenization and similarity thresholds.</td></tr>
+                      <tr><td><strong>Jul 15, 2026</strong></td><td>DLL Fix & Delivery</td><td>Resolved OS security DLL block with a pure-NumPy vectorizer; finalized and verified Task 1.</td></tr>
+
+                      <tr class="phase-header"><td colspan="3">🔹 PHASE 2: Task 2 — AI Multi-Lingual Translation & Speech Tool (16 July – 30 July 2026)</td></tr>
+                      <tr><td><strong>Jul 16, 2026</strong></td><td>Task 2: Inception</td><td>Started multilingual translation tool; evaluated machine translation protocols and accessibility requirements.</td></tr>
+                      <tr><td><strong>Jul 17, 2026</strong></td><td>Streamlit UI Setup</td><td>Configured responsive Streamlit interface and integrated <code>deep-translator</code> translation library.</td></tr>
+                      <tr><td><strong>Jul 18, 2026</strong></td><td>Language Discovery</td><td>Implemented dynamic discovery and runtime mapping of 130+ supported language ISO codes.</td></tr>
+                      <tr><td><strong>Jul 19, 2026</strong></td><td>Auto-Detect Engine</td><td>Added automatic source-language script detection and destination language selector.</td></tr>
+                      <tr><td><strong>Jul 20, 2026</strong></td><td>Translation Workflow</td><td>Implemented translation processing pipeline and styled text output containers.</td></tr>
+                      <tr><td><strong>Jul 21, 2026</strong></td><td>Resilient API Fallback</td><td>Integrated direct requests-based Google API fallback to prevent HTTP 429 rate-limiting failures.</td></tr>
+                      <tr><td><strong>Jul 22, 2026</strong></td><td>Text-to-Speech (TTS)</td><td>Integrated <code>gTTS</code> (Google Text-to-Speech) utilizing target-language ISO codes.</td></tr>
+                      <tr><td><strong>Jul 23, 2026</strong></td><td>In-Memory Buffering</td><td>Implemented <code>io.BytesIO</code> in-memory audio streaming and <code>st.audio</code> playback to avoid disk file writes.</td></tr>
+                      <tr><td><strong>Jul 24, 2026</strong></td><td>Copy & Accessibility</td><td>Added single-click copy-to-clipboard functionality and refined the layout.</td></tr>
+                      <tr><td><strong>Jul 25, 2026</strong></td><td>Bilingual Testing</td><td>Tested French-to-English, English-to-Spanish, and Hindi translation accuracy and latency.</td></tr>
+                      <tr><td><strong>Jul 26, 2026</strong></td><td>Cross-Language TTS</td><td>Tested multiple global languages (Japanese, German, Arabic), auto-detection, and audio synthesis.</td></tr>
+                      <tr><td><strong>Jul 27, 2026</strong></td><td>Fault-Tolerance Test</td><td>Stress-tested network failure scenarios and confirmed automated failover behavior.</td></tr>
+                      <tr><td><strong>Jul 28, 2026</strong></td><td>Resource Optimization</td><td>Audited in-memory audio buffers and verified zero disk storage leakage.</td></tr>
+                      <tr><td><strong>Jul 29, 2026</strong></td><td>Final Quality Audit</td><td>Executed comprehensive end-to-end testing, fixed minor edge cases, and completed technical documentation.</td></tr>
+                      <tr><td><strong>Jul 30, 2026</strong></td><td>Final Review</td><td>Completed final code review, packaged repositories, and finalized formal internship submission.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Impact & Acknowledgements -->
+              <div class="docs-sub-section">
+                <h4>🎯 Academic & Professional Impact</h4>
+                <div class="impact-grid">
+                  <div class="impact-box">
+                    <h5>Technical Impact</h5>
+                    <p>Engineered two functional AI applications; implemented foundational NLP algorithms (TF-IDF, Cosine Similarity) from scratch without relying on opaque commercial APIs; built resilient multi-tier fallback architectures.</p>
+                  </div>
+                  <div class="impact-box">
+                    <h5>Professional Impact</h5>
+                    <p>Gained hands-on experience in full-stack AI development, defensive API engineering, in-memory stream processing, and production deployment on Vercel via GitHub CI/CD.</p>
+                  </div>
+                  <div class="impact-box">
+                    <h5>Personal Impact</h5>
+                    <p>Successfully bridged classroom theoretical principles with production-grade application engineering; developed confidence in debugging operating system restrictions and presenting complex AI systems.</p>
+                  </div>
+                </div>
+
+                <div class="acknowledgement-card">
+                  <h5>🙏 Formal Acknowledgements</h5>
+                  <p>I sincerely express my gratitude to <strong>CodeAlpha</strong> for providing the virtual internship platform and practical problem statements. Special thanks to <strong>Ms. Ishakshi Gupta</strong>, the faculty members of the <strong>Department of Computer Science & Engineering (Artificial Intelligence)</strong> at <strong>NIET Greater Noida</strong>, and my industry mentors for their invaluable guidance throughout this internship tenure.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>Built by <strong>Purusharth Tripathi</strong> for CodeAlpha AI Internship • Powered by Vercel Serverless & Static CDN</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
