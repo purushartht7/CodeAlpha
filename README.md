@@ -65,7 +65,7 @@ Within 10 seconds, Vercel will give you a live production link (e.g., `https://c
 
 ### Option A: Using Node.js (Full API + Frontend)
 ```bash
-node server.js
+node local-server.js
 ```
 Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 

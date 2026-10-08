@@ -477,26 +477,8 @@ document.addEventListener('DOMContentLoaded', () => {
       let translated = '';
       let detected = srcCode;
 
-      // Tier 1: Try Local / Vercel Serverless API (/api/translate)
+      // Tier 1: Direct High-Speed Client Translation (Google GTX - 50ms latency)
       try {
-        const res = await fetch('/api/translate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text, source: srcCode, target: tgtCode })
-        });
-        if (res.ok) {
-          const data = await res.json();
-          if (data.translatedText) {
-            translated = data.translatedText;
-            detected = data.detectedSource || srcCode;
-          }
-        }
-      } catch (apiErr) {
-        // Fallback to client-side direct request if serverless is unreachable
-      }
-
-      // Tier 2: Resilient Client-Side Fallback (Direct GTX Endpoint)
-      if (!translated) {
         const gtxUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(srcCode)}&tl=${encodeURIComponent(tgtCode)}&dt=t&q=${encodeURIComponent(text)}`;
         const gtxRes = await fetch(gtxUrl);
         if (gtxRes.ok) {
@@ -504,8 +486,28 @@ document.addEventListener('DOMContentLoaded', () => {
           const segments = gtxData[0] || [];
           translated = segments.map(s => (s && s[0]) ? s[0] : '').join('');
           detected = gtxData[2] || srcCode;
-        } else {
-          throw new Error('All translation endpoints busy. Please try again.');
+        }
+      } catch (clientErr) {
+        // Fallback to Serverless API if client fetch hits browser restriction
+      }
+
+      // Tier 2: Serverless API Fallback (/api/translate)
+      if (!translated) {
+        try {
+          const res = await fetch('/api/translate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text, source: srcCode, target: tgtCode })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.translatedText) {
+              translated = data.translatedText;
+              detected = data.detectedSource || srcCode;
+            }
+          }
+        } catch (apiErr) {
+          throw new Error('All translation services are currently busy. Please retry.');
         }
       }
 
