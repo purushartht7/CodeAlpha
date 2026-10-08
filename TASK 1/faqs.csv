@@ -1,0 +1,11 @@
+question,answer
+What is CodeAlpha?,"CodeAlpha is a virtual internship platform that provides students with real-world project tasks in fields like AI, Web Development, and Data Science."
+How do I submit my internship task?,"You need to upload your source code to GitHub in a repository named CodeAlpha_ProjectName, post a video explanation on LinkedIn tagging CodeAlpha, and submit the link using the submission form."
+How many tasks do I need to complete?,You need to complete any 2 or 3 tasks out of the 4 listed in your domain task list.
+What should the GitHub repository be named?,The repository should be named CodeAlpha_ProjectName where ProjectName is replaced with your actual project name.
+Do I need to post on LinkedIn?,"Yes. You must share your internship status on LinkedIn and tag @CodeAlpha, and also post a video explanation of each project."
+What is a chatbot?,A chatbot is a software application that simulates human conversation by matching user questions to the closest known answer using natural language processing techniques.
+What is cosine similarity?,Cosine similarity is a mathematical measure used to determine how similar two pieces of text are by comparing the angle between their vector representations.
+What programming language is used for this chatbot?,"This chatbot is built using Python, with scikit-learn for text similarity matching and Streamlit for the user interface."
+Is this chatbot free to use?,Yes. This chatbot runs entirely offline using open-source Python libraries and does not require any paid API.
+Can I add my own questions and answers?,"Yes. You can edit the faqs.csv file to add, remove, or modify any question-answer pairs."
